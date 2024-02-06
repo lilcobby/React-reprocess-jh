@@ -26,6 +26,7 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      console.log("this is the tokeb:   ", token);
 
       return { token, user };
     },
@@ -33,9 +34,11 @@ const resolvers = {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
+      console.log("this is the tokeb:   ", token);
       return { token, user };
     },
     saveBook: async (parent, args, context) => {
+      console.log("This is context!!!! --- >", context.user);
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
